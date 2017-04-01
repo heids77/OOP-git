@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-/**
- * Created by heids on 31.03.2017.
- */
 public class TekstiAnalyys {
     public static void main(String[] args) throws FileNotFoundException {
         File fail = new File("president.txt");
