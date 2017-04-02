@@ -12,11 +12,11 @@ public class Võõrsõna {
         for (String täht : fšzž) {
             if (nimetus.toLowerCase().contains(täht)) {
                 return true;
-            }
-            else if (nimetus.toLowerCase().startsWith("g") || nimetus.toLowerCase().startsWith("b") || nimetus.toLowerCase().startsWith("d")) {
+            } else if (nimetus.toLowerCase().startsWith("g") || nimetus.toLowerCase().startsWith("b") || nimetus.toLowerCase().startsWith("d")) {
                 return true;
             }
-        }return false;
+        }
+        return false;
     }
 
     @Override
