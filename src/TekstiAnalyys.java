@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 
-public class TekstilineAnalüüs {
+public class TekstiAnalyys {
     public static void main(String[] args) throws FileNotFoundException {
         String sisestatakse = JOptionPane.showInputDialog(null, "Sisesta analüüsitava teksti faili nimi ", "Teksti sisestamine",
                 JOptionPane.QUESTION_MESSAGE);
@@ -50,47 +50,50 @@ public class TekstilineAnalüüs {
                 }
             }
             for (int i = 0; i < tükid3.length; i++) {
-                String nimi = tükid[i].replaceAll(",", "").replaceAll("!", "").replaceAll("\\.", "").replaceAll("\\?", "").replaceAll(" ", "").replaceAll("–", "");
-                String strNimi = nimi.toLowerCase();
-                Võõrsõna c = new Võõrsõna(strNimi);
-                if (c.võõrsõnadeLeidja(strNimi) == true) {
+                String nimi3 = tükid3[i].replaceAll(",", "").replaceAll("!", "").replaceAll("\\.", "").replaceAll("\\?", "").replaceAll(" ", "").replaceAll("–", "");
+                String strNimi3 = nimi3.toLowerCase();
+                Võõrsõna c = new Võõrsõna(strNimi3);
+                if (c.võõrsõnadeLeidja(strNimi3) == true) {
                     list3.add(c);
                 }
             }
 
-
-            ArrayList<Lause> suvalisedLaused = new ArrayList<>();
-            for (int i = 0; i < 3; i++) {
-                Random randomGenerator = new Random();
-                int index = randomGenerator.nextInt(list2.size());
-                suvalisedLaused.add(list2.get(index));
-                suvalisedLaused.get(i);
-                System.out.println(suvalisedLaused);
-            }
-
-
-            double keskminePikkus = kokku / list1.size();
-            double keskmineLausePikkus = kokku2 / list2.size();
-            Collections.sort(list1);
-            String strList1 = list1.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
-            System.out.println("Sõnu kokku: " + list1.size());
-            System.out.println("Lauseid kokku: " + list2.size());
-            System.out.println("Keskmine sõnepikkus: " + String.format("%.2f", keskminePikkus) + " tähte");
-            System.out.println("Keskmine lausepikkus: " + String.format("%.2f", keskmineLausePikkus) + " sõna");
-            System.out.println("Sõned pikkuse järjekorras: ");
-            System.out.println(strList1);
-            Collections.sort(list2);
-            String strList2 = list2.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
-            System.out.println(strList2);
-            System.out.println("Tekstist leitud võõrsõnad on: " + list3);
-            String suvalised_muditid = suvalisedLaused.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
-
-            System.out.println("Vahel rebitakse ka parimate tekstide puhul asju kontekstist välja. Kontekstist välja rebitud kolm suvalist lauset on: " + suvalised_muditid);
-
-
+        }
+        ArrayList<Lause> suvalisedLaused = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            Random randomGenerator = new Random();
+            int index = randomGenerator.nextInt(list2.size());
+            suvalisedLaused.add(list2.get(index));
+            suvalisedLaused.get(i);
+            //System.out.println(suvalisedLaused);
+        }
+        double keskminePikkus = kokku / list1.size();
+        double keskmineLausePikkus = kokku2 / list2.size();
+        Collections.sort(list1);
+        String strList1 = list1.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
+        System.out.println("Sõnu kokku: " + list1.size());
+        System.out.println("Lauseid kokku: " + list2.size());
+        System.out.println("Keskmine sõnepikkus: " + String.format("%.2f", keskminePikkus) + " tähte");
+        System.out.println("Keskmine lausepikkus: " + String.format("%.2f", keskmineLausePikkus) + " sõna");
+        System.out.println("\n Tekstist leitud võõrsõnad on: " + list3);
+        String suvalised_muditid = suvalisedLaused.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
+        System.out.println("\n Vahel rebitakse ka parimate tekstide puhul asju kontekstist välja. Kontekstist välja rebitud kolm suvalist lauset on: \n" + suvalised_muditid);
+        System.out.println("10 kõige pikemat sõna: ");
+        //System.out.println(strList1);
+        for (int i = 0; i < 10; i++){
+            System.out.print(list1.get(i));
+        }
+        Collections.sort(list2);
+        //String strList2 = list2.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
+        //System.out.println(strList2);
+        System.out.println("\n 10 kõige pikemat lauset: ");
+        for (int i = 0; i < 10; i++){
+            System.out.print(list2.get(i));
         }
 
     }
+
 }
+
 
 
