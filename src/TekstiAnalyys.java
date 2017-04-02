@@ -85,7 +85,7 @@ public class TekstilineAnalüüs {
             System.out.println("Tekstist leitud võõrsõnad on: " + list3);
             String suvalised_muditid = suvalisedLaused.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
 
-            System.out.println("Kontekstist välja rebitud kolm suvalist lauset on: " + suvalised_muditid);
+            System.out.println("Vahel rebitakse ka parimate tekstide puhul asju kontekstist välja. Kontekstist välja rebitud kolm suvalist lauset on: " + suvalised_muditid);
 
 
         }
