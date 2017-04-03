@@ -1,4 +1,3 @@
-//Selles klassis võetakse üks sõna, väljastatkse see ning uuritakse meetodis, kas see on võõrsõna või mitte.
 public class Võõrsõna {
     String nimetus;
 
@@ -7,7 +6,7 @@ public class Võõrsõna {
         this.nimetus = nimetus;
     }
 
-
+    // uuritakse, kas sõna on võõrsõna või mitte
     public boolean võõrsõnadeLeidja(String nimetus) {
         String[] fšzž = {"f", "š", "z", "ž"};
         for (String täht : fšzž) {

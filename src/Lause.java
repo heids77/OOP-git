@@ -1,8 +1,7 @@
-//Selles klassis võetakse laused ja lausete pikkused, väljastatakse need ning sõnade arv lauses. Samuti võrreldakse lausete pikkusid
 public class Lause implements Comparable<Lause> {
     String lauseIse;
     int lausePikkus;
-
+    // võrreldakse lausepikkuseid
     @Override
     public int compareTo(Lause võrreldav) {
         if (lausePikkus < võrreldav.lausePikkus) {
@@ -18,7 +17,7 @@ public class Lause implements Comparable<Lause> {
         this.lauseIse = lauseIse;
         this.lausePikkus = lausePikkus;
     }
-
+    // meetod leiab, mitu sõna on lauses
     public static int mituSõnaLauses(String lauseIse) {
         int count = 0;
         String sõnad[] = lauseIse.split(" ");

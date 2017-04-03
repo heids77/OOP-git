@@ -1,8 +1,7 @@
-//Selles klassis võetakse sisendiks antud sõnad ja pikkused, väljastatakse nende nimetused/pikkused ja võrreldakse sõnu vastavalt nende pikkusele.
 public class Sõna implements Comparable<Sõna> {
     String nimetus;
     int pikkus;
-
+    // sõnu võrreldakse vastavalt nende pikkusele
     @Override
     public int compareTo(Sõna võrreldav) {
         if (pikkus < võrreldav.pikkus) {
