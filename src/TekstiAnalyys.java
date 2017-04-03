@@ -17,7 +17,7 @@ public class TekstiAnalyys {
         ArrayList<Lause> list2 = new ArrayList<>();
         ArrayList<Võõrsõna> list3 = new ArrayList<>();
         //Kasutajalt küsitakse, millist faili ta soovib analüüsida
-        String sisestatakse = JOptionPane.showInputDialog(null, "Sisesta analüüsitava teksti faili nimi ", "Teksti sisestamine",
+        String sisestatakse = JOptionPane.showInputDialog(null, "Sisesta analüüsitava tekstifaili nimi ", "Teksti sisestamine",
                 JOptionPane.QUESTION_MESSAGE);
         File fail = new File(sisestatakse);
         // Tekstifaili sisu loetakse sisse
