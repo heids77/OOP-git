@@ -12,25 +12,28 @@ import java.util.Scanner;
 
 public class TekstiAnalyys {
     public static void main(String[] args) throws FileNotFoundException {
-        //Kasutajalt küsitakse, millist faili ta soovib analüüsida
-        String sisestatakse = JOptionPane.showInputDialog(null, "Sisesta analüüsitava teksti faili nimi ", "Teksti sisestamine",
-                JOptionPane.QUESTION_MESSAGE);
-        //Sisestatud fail läheb analüüsimisele
-        File fail = new File(sisestatakse);
-        Scanner sc = new Scanner(fail, "UTF-8");
+        // Luuakse listid sõnade, lausete ja võõrsõnade isendite jaoks
         ArrayList<Sõna> list1 = new ArrayList<>();
         ArrayList<Lause> list2 = new ArrayList<>();
         ArrayList<Võõrsõna> list3 = new ArrayList<>();
+        //Kasutajalt küsitakse, millist faili ta soovib analüüsida
+        String sisestatakse = JOptionPane.showInputDialog(null, "Sisesta analüüsitava teksti faili nimi ", "Teksti sisestamine",
+                JOptionPane.QUESTION_MESSAGE);
+        File fail = new File(sisestatakse);
+        // Tekstifaili sisu loetakse sisse
+        Scanner sc = new Scanner(fail, "UTF-8");
+        // Luuakse massiivid sõnade ja lausete jaoks, mis loetakse tekstifailist
         String[] tükid = new String[0];
         String[] tükid2 = new String[0];
         String[] tükid3 = new String[0];
         double kokku = 0;
         double kokku2 = 0;
+        // Sõnad ja laused pannakse massiividesse
         while (sc.hasNextLine()) {
             String rida = sc.nextLine();
             tükid = rida.trim().split(" ");
             tükid3 = rida.trim().split(" ");
-            tükid2 = rida.trim().split("[.]");
+            tükid2 = rida.trim().split("[.?!]");
             //Esimene tsükkel klassi Sõna sisendi saamiseks tekstist
             for (int i = 0; i < tükid.length; i++) {
                 String nimi = tükid[i].replaceAll(",", "").replaceAll("!", "").replaceAll("\\.", "").replaceAll("\\?", "").replaceAll(" ", "").replaceAll("–", "");
@@ -45,7 +48,7 @@ public class TekstiAnalyys {
                     list1.add(a);
                 }
             }
-//Teine tsükkel, kus saadakse klassi Lause sisend
+            //Teine tsükkel, kus saadakse klassi Lause sisend
             for (int i = 0; i < tükid2.length; i++) {
                 String nimi2 = tükid2[i];
                 int intNumber2 = Lause.mituSõnaLauses(nimi2);
@@ -66,8 +69,9 @@ public class TekstiAnalyys {
             }
 
         }
-        //luuakse uus list, kuhu sisestatakse kolm suvaliselt genereeritud lauset. Lauset saadakse teises tsüklis loodud listiga, mis annab omakorda listi kõikide lausetega.
-        //Nendest lausetest võetaksegi kolm suvalist
+        //luuakse uus list, kuhu sisestatakse kolm juhuslikult genereeritud lauset.
+        // Laused saadakse teises tsüklis loodud listiga, mis annab omakorda listi kõikide lausetega.
+        //Nendest lausetest võetaksegi kolm juhuslikku
         ArrayList<Lause> suvalisedLaused = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Random randomGenerator = new Random();
@@ -75,34 +79,32 @@ public class TekstiAnalyys {
             suvalisedLaused.add(list2.get(index));
             suvalisedLaused.get(i);
         }
-        //Leitakse sõnade ja lausete keskmised pikkused jagades listi, kuhu on salvestatud kas kõik sõnad või laused, pikkusega seal olevate elementide arvu
+        //Leitakse sõnade ja lausete keskmised pikkused
         double keskminePikkus = kokku / list1.size();
         double keskmineLausePikkus = kokku2 / list2.size();
-        //Statistikast sorteeritakse sõnade list
+        //Sorteeritakse sõnade list. Vastavas klassis on CompareTo meetod, mis reastab sõnad pikkuse järjekorras
         Collections.sort(list1);
-        String strList1 = list1.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
+        // Trükitakse välja sõnade ja lausete arv, keskmine sõna- ja lausepikkus
         System.out.println("Sõnu kokku: " + list1.size());
         System.out.println("Lauseid kokku: " + list2.size());
         System.out.println("Keskmine sõnepikkus: " + String.format("%.2f", keskminePikkus) + " tähte");
         System.out.println("Keskmine lausepikkus: " + String.format("%.2f", keskmineLausePikkus) + " sõna");
-        //Prinditakse välja tekstist leitud võõrsõnad
+        //Trükitakse välja tekstist leitud võõrsõnad
         System.out.println("\n Tekstist leitud võõrsõnad on: " + list3);
         String suvalised_muditid = suvalisedLaused.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
-        //Kuvatakse varasemalt randomiga saadud kolm suvalist lauset
-        System.out.println("\n Vahel rebitakse ka parimate tekstide puhul asju kontekstist välja. Kontekstist välja rebitud kolm suvalist lauset on: \n" + suvalised_muditid);
-        //Väike edetabel: kümme kõige pikemat sõna, mis leitakse võttes varasemalt sorteeritud list1 ehk sõnade listi 10 esimest elementi.
+        //Kuvatakse varasemalt randomiga saadud kolm juhuslikku lauset
+        System.out.println("\n Vahel rebitakse ka parimate tekstide puhul asju kontekstist välja. Kontekstist välja rebitud kolm juhuslikku lauset on: \n" + suvalised_muditid);
+        //Väike edetabel: kümme kõige pikemat sõna, mis leitakse võttes varasemalt sorteeritud list1-st
+        // ehk sõnade listi 10 esimest elementi.
         System.out.println("10 kõige pikemat sõna: ");
-        //System.out.println(strList1);
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             System.out.print(list1.get(i));
         }
-        //Statistika jaoks sorteeritakse lausete list
+        //Sorteeritakse lausete list. Vastavas klassis on CompareTo meetod, mis reastab laused pikkuse järjekorras
         Collections.sort(list2);
-        //String strList2 = list2.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
-        //System.out.println(strList2);
-        //Siin samamoodi nagu sõnede puhul, võetakse eelnevalt sorteeritud lausete list ja leitakse 10 esimest elementi
+        //Võetakse eelnevalt sorteeritud lausete list ja leitakse 10 esimest elementi
         System.out.println("\n 10 kõige pikemat lauset: ");
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             System.out.print(list2.get(i));
         }
 
