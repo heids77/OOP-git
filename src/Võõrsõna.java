@@ -1,3 +1,4 @@
+//Selles klassis võetakse üks sõna, väljastatkse see ning uuritakse meetodis, kas see on võõrsõna või mitte.
 public class Võõrsõna {
     String nimetus;
 

@@ -1,6 +1,4 @@
-/**
- * Created by heids on 1.04.2017.
- */
+//Selles klassis võetakse laused ja lausete pikkused, väljastatakse need ning sõnade arv lauses. Samuti võrreldakse lausete pikkusid
 public class Lause implements Comparable<Lause> {
     String lauseIse;
     int lausePikkus;

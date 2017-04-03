@@ -1,8 +1,4 @@
-
-
-/**
- * Created by heids on 31.03.2017.
- */
+//Selles klassis võetakse sisendiks antud sõnad ja pikkused, väljastatakse nende nimetused/pikkused ja võrreldakse sõnu vastavalt nende pikkusele.
 public class Sõna implements Comparable<Sõna> {
     String nimetus;
     int pikkus;
