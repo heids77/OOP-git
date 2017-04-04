@@ -1,5 +1,6 @@
-//Antud programmi eesmärgiks on teha suvalise sisestatud teksti analüüs seal olevate lauste ja sõnade põhjal. Eraldi klassides toimub töö ka võõrsõnadega.
-// Programm leiab sõnade ja lausete koguarvu, keskmise sõne- ja lausepikkuse, tekstis olevad võõrsõnad ja 10 pikimat sõna ning lauset.
+//Programmi eesmärk on analüüsida teksti, mille kasutaja programmile ette annab.
+// Programm leiab sõnade ja lausete koguarvu, keskmise sõne- ja lausepikkuse,
+// tekstis olevad võõrsõnad ja 10 pikimat sõna ning lauset.
 
 import javax.swing.*;
 import java.io.File;
@@ -72,6 +73,7 @@ public class TekstiAnalyys {
         //luuakse uus list, kuhu sisestatakse kolm juhuslikult genereeritud lauset.
         // Laused saadakse teises tsüklis loodud listiga, mis annab omakorda listi kõikide lausetega.
         //Nendest lausetest võetaksegi kolm juhuslikku
+        // See on tesktianalüüsi seisukohalt vähem oluline osa, aga proovisime randomi ka lisada :)
         ArrayList<Lause> suvalisedLaused = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Random randomGenerator = new Random();
