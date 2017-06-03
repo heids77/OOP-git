@@ -22,77 +22,80 @@ public class TekstiAnalyys extends JPanel {
         ArrayList<Lause> list2 = new ArrayList<>();
         ArrayList<Võõrsõna> list3 = new ArrayList<>();
         //Kasutajalt küsitakse, millist faili ta soovib analüüsida
+
         String sisestatakse = JOptionPane.showInputDialog(null, "Sisesta analüüsitava tekstifaili nimi (kujul failinimi.txt) ", "Teksti sisestamine",
                 JOptionPane.QUESTION_MESSAGE);
+
         File fail = new File(sisestatakse);
         // Tekstifaili sisu loetakse sisse
-        Scanner sc = new Scanner(fail, "UTF-8");
-        // Luuakse massiivid sõnade ja lausete jaoks, mis loetakse tekstifailist
-        String[] tükid = new String[0];
-        String[] tükid2 = new String[0];
-        String[] tükid3 = new String[0];
-        double kokku = 0;
-        double kokku2 = 0;
-        // Sõnad ja laused pannakse massiividesse
-        while (sc.hasNextLine()) {
-            String rida = sc.nextLine();
-            tükid = rida.trim().split(" ");
-            tükid3 = rida.trim().split(" ");
-            tükid2 = rida.trim().split("[.?!]");
-            //Esimene tsükkel klassi Sõna sisendi saamiseks tekstist
-            for (int i = 0; i < tükid.length; i++) {
-                String nimi = tükid[i].replaceAll(",", "").replaceAll("!", "").replaceAll("\\.", "").replaceAll("\\?", "").replaceAll(" ", "").replaceAll("–", "");
-                String strNimi = nimi.toLowerCase();
-                int intNumber = tükid[i].length();
-                kokku = kokku + tükid[i].length();
-                if (tükid[i].length() < 2) {
-                    kokku = kokku - tükid[i].length();
+        try  {
+            Scanner sc = new Scanner(fail, "UTF-8");
+            // Luuakse massiivid sõnade ja lausete jaoks, mis loetakse tekstifailist
+            String[] tükid = new String[0];
+            String[] tükid2 = new String[0];
+            String[] tükid3 = new String[0];
+            double kokku = 0;
+            double kokku2 = 0;
+            // Sõnad ja laused pannakse massiividesse
+            while (sc.hasNextLine()) {
+                String rida = sc.nextLine();
+                tükid = rida.trim().split(" ");
+                tükid3 = rida.trim().split(" ");
+                tükid2 = rida.trim().split("[.?!]");
+                //Esimene tsükkel klassi Sõna sisendi saamiseks tekstist
+                for (int i = 0; i < tükid.length; i++) {
+                    String nimi = tükid[i].replaceAll(",", "").replaceAll("!", "").replaceAll("\\.", "").replaceAll("\\?", "").replaceAll(" ", "").replaceAll("–", "");
+                    String strNimi = nimi.toLowerCase();
+                    int intNumber = tükid[i].length();
+                    kokku = kokku + tükid[i].length();
+                    if (tükid[i].length() < 2) {
+                        kokku = kokku - tükid[i].length();
+                    }
+                    if (intNumber > 1) {
+                        Sõna a = new Sõna(strNimi, intNumber);
+                        list1.add(a);
+                    }
                 }
-                if (intNumber > 1) {
-                    Sõna a = new Sõna(strNimi, intNumber);
-                    list1.add(a);
+                //Teine tsükkel, kus saadakse klassi Lause sisend
+                for (int i = 0; i < tükid2.length; i++) {
+                    String nimi2 = tükid2[i];
+                    int intNumber2 = Lause.mituSõnaLauses(nimi2);
+                    kokku2 = kokku2 + intNumber2;
+                    if (intNumber2 > 1) {
+                        Lause b = new Lause(nimi2, intNumber2);
+                        list2.add(b);
+                    }
                 }
-            }
-            //Teine tsükkel, kus saadakse klassi Lause sisend
-            for (int i = 0; i < tükid2.length; i++) {
-                String nimi2 = tükid2[i];
-                int intNumber2 = Lause.mituSõnaLauses(nimi2);
-                kokku2 = kokku2 + intNumber2;
-                if (intNumber2 > 1) {
-                    Lause b = new Lause(nimi2, intNumber2);
-                    list2.add(b);
+                //Kolmas tsükkel, kus saadakse klassi Võõrsõna sisend
+                for (int i = 0; i < tükid3.length; i++) {
+                    String nimi3 = tükid3[i].replaceAll(",", "").replaceAll("!", "").replaceAll("\\.", "").replaceAll("\\?", "").replaceAll(" ", "").replaceAll("–", "");
+                    String strNimi3 = nimi3.toLowerCase();
+                    Võõrsõna c = new Võõrsõna(strNimi3);
+                    if (c.võõrsõnadeLeidja(strNimi3) == true) {
+                        list3.add(c);
+                    }
                 }
-            }
-            //Kolmas tsükkel, kus saadakse klassi Võõrsõna sisend
-            for (int i = 0; i < tükid3.length; i++) {
-                String nimi3 = tükid3[i].replaceAll(",", "").replaceAll("!", "").replaceAll("\\.", "").replaceAll("\\?", "").replaceAll(" ", "").replaceAll("–", "");
-                String strNimi3 = nimi3.toLowerCase();
-                Võõrsõna c = new Võõrsõna(strNimi3);
-                if (c.võõrsõnadeLeidja(strNimi3) == true) {
-                    list3.add(c);
-                }
-            }
 
-        }
-        //luuakse uus list, kuhu sisestatakse kolm juhuslikult genereeritud lauset.
-        // Laused saadakse teises tsüklis loodud listiga, mis annab omakorda listi kõikide lausetega.
-        //Nendest lausetest võetaksegi kolm juhuslikku
-        // See on tesktianalüüsi seisukohalt vähem oluline osa, aga proovisime randomi ka lisada :)
-        ArrayList<Lause> suvalisedLaused = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            Random randomGenerator = new Random();
-            int index = randomGenerator.nextInt(list2.size());
-            suvalisedLaused.add(list2.get(index));
-            suvalisedLaused.get(i);
-        }
-        //Leitakse sõnade ja lausete keskmised pikkused
-        double keskminePikkus = kokku / list1.size();
-        double keskmineLausePikkus = kokku2 / list2.size();
-        String keskmSõnaLühi = String.format("%.2f", keskminePikkus);
-        String keskmLauseLühi = String.format("%.2f", keskmineLausePikkus);
-        //Sorteeritakse sõnade list. Vastavas klassis on CompareTo meetod, mis reastab sõnad pikkuse järjekorras
-        Collections.sort(list1);
-        // Trükitakse välja sõnade ja lausete arv, keskmine sõna- ja lausepikkus
+            }
+            //luuakse uus list, kuhu sisestatakse kolm juhuslikult genereeritud lauset.
+            // Laused saadakse teises tsüklis loodud listiga, mis annab omakorda listi kõikide lausetega.
+            //Nendest lausetest võetaksegi kolm juhuslikku
+            // See on tesktianalüüsi seisukohalt vähem oluline osa, aga proovisime randomi ka lisada :)
+            ArrayList<Lause> suvalisedLaused = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                Random randomGenerator = new Random();
+                int index = randomGenerator.nextInt(list2.size());
+                suvalisedLaused.add(list2.get(index));
+                suvalisedLaused.get(i);
+            }
+            //Leitakse sõnade ja lausete keskmised pikkused
+            double keskminePikkus = kokku / list1.size();
+            double keskmineLausePikkus = kokku2 / list2.size();
+            String keskmSõnaLühi = String.format("%.2f", keskminePikkus);
+            String keskmLauseLühi = String.format("%.2f", keskmineLausePikkus);
+            //Sorteeritakse sõnade list. Vastavas klassis on CompareTo meetod, mis reastab sõnad pikkuse järjekorras
+            Collections.sort(list1);
+            // Trükitakse välja sõnade ja lausete arv, keskmine sõna- ja lausepikkus
 
        /* System.out.println("Sõnu kokku: " + list1.size());
         System.out.println("Lauseid kokku: " + list2.size());
@@ -117,61 +120,68 @@ public class TekstiAnalyys extends JPanel {
             System.out.print(list2.get(i));
         }*/
 
-        JFrame frame = new JFrame("Tekstianalüüs");
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 600);
-        JPanel panel = new JPanel(new GridBagLayout());
-        frame.getContentPane().add(panel, BorderLayout.NORTH);
-        GridBagConstraints c = new GridBagConstraints();
-        Font f1 = new Font("Arial", Font.BOLD, 18);
-        Label label1 = new Label("ANALÜÜSI TULEMUSED");
-        c.anchor = GridBagConstraints.FIRST_LINE_START;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.insets = new Insets(20, 10, 0, 10);
-        label1.setFont(f1);
-        label1.setBackground(Color.LIGHT_GRAY);
-        panel.add(label1, c);
-        Label label2 = new Label("Sõnu kokku: " + list1.size());
-        c.anchor = GridBagConstraints.LINE_START;
-        c.gridx = 0;
-        c.gridy = 1;
-        c.insets = new Insets(5, 10, 0, 10);
-        panel.add(label2, c);
-        Label label3 = new Label("Lauseid kokku: " + list2.size());
-        c.anchor = GridBagConstraints.LINE_START;
-        c.gridx = 0;
-        c.gridy = 2;
-        c.insets = new Insets(5, 10, 0, 10);
-        panel.add(label3, c);
-        Label label4 = new Label("Keskmine sõnepikkus: " + keskmSõnaLühi + " tähte");
-        c.anchor = GridBagConstraints.LINE_START;
-        c.gridx = 0;
-        c.gridy = 3;
-        c.insets = new Insets(5, 10, 0, 10);
-        panel.add(label4, c);
-        Label label5 = new Label("Keskmine lausepikkus: " + keskmLauseLühi + " sõna");
-        c.anchor = GridBagConstraints.LINE_START;
-        c.gridx = 0;
-        c.gridy = 4;
-        c.insets = new Insets(5, 10, 0, 10);
-        panel.add(label5, c);
-        Label label6 = new Label("Tekstist leitud võõrsõnad on: ");
-        c.anchor = GridBagConstraints.LINE_START;
-        c.gridx = 0;
-        c.gridy = 5;
-        c.insets = new Insets(5, 10, 0, 10);
-        panel.add(label6, c);
-        Label label7 = new Label(list3.toString());
-        c.anchor = GridBagConstraints.LINE_START;
-        c.gridx = 0;
-        c.gridy = 6;
-        c.insets = new Insets(5, 10, 0, 10);
-        panel.add(label7, c);
+            JFrame frame = new JFrame("Tekstianalüüs");
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(600, 600);
+            JPanel panel = new JPanel(new GridBagLayout());
+            frame.getContentPane().add(panel, BorderLayout.NORTH);
+            GridBagConstraints c = new GridBagConstraints();
+            Font f1 = new Font("Arial", Font.BOLD, 18);
+            Label label1 = new Label("ANALÜÜSI TULEMUSED");
+            c.anchor = GridBagConstraints.FIRST_LINE_START;
+            c.gridx = 0;
+            c.gridy = 0;
+            c.insets = new Insets(20, 10, 0, 10);
+            label1.setFont(f1);
+            label1.setBackground(Color.LIGHT_GRAY);
+            panel.add(label1, c);
+            Label label2 = new Label("Sõnu kokku: " + list1.size());
+            c.anchor = GridBagConstraints.LINE_START;
+            c.gridx = 0;
+            c.gridy = 1;
+            c.insets = new Insets(5, 10, 0, 10);
+            panel.add(label2, c);
+            Label label3 = new Label("Lauseid kokku: " + list2.size());
+            c.anchor = GridBagConstraints.LINE_START;
+            c.gridx = 0;
+            c.gridy = 2;
+            c.insets = new Insets(5, 10, 0, 10);
+            panel.add(label3, c);
+            Label label4 = new Label("Keskmine sõnepikkus: " + keskmSõnaLühi + " tähte");
+            c.anchor = GridBagConstraints.LINE_START;
+            c.gridx = 0;
+            c.gridy = 3;
+            c.insets = new Insets(5, 10, 0, 10);
+            panel.add(label4, c);
+            Label label5 = new Label("Keskmine lausepikkus: " + keskmLauseLühi + " sõna");
+            c.anchor = GridBagConstraints.LINE_START;
+            c.gridx = 0;
+            c.gridy = 4;
+            c.insets = new Insets(5, 10, 0, 10);
+            panel.add(label5, c);
+            Label label6 = new Label("Tekstist leitud võõrsõnad on: ");
+            c.anchor = GridBagConstraints.LINE_START;
+            c.gridx = 0;
+            c.gridy = 5;
+            c.insets = new Insets(5, 10, 0, 10);
+            panel.add(label6, c);
+            Label label7 = new Label(list3.toString());
+            c.anchor = GridBagConstraints.LINE_START;
+            c.gridx = 0;
+            c.gridy = 6;
+            c.insets = new Insets(5, 10, 0, 10);
+            panel.add(label7, c);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Selle nimega faili ei leitud. Programm suletakse.");
+            System.exit(1);
+        }
 
     }
+
 }
+
 
 
 
