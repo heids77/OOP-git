@@ -4,19 +4,16 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 
 public class TekstiAnalyys extends JPanel {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         // Luuakse listid sõnade, lausete ja võõrsõnade isendite jaoks
         ArrayList<Sõna> list1 = new ArrayList<>();
         ArrayList<Lause> list2 = new ArrayList<>();
@@ -27,18 +24,31 @@ public class TekstiAnalyys extends JPanel {
                 JOptionPane.QUESTION_MESSAGE);
 
         File fail = new File(sisestatakse);
+
+
+
         // Tekstifaili sisu loetakse sisse
-        try  {
-            Scanner sc = new Scanner(fail, "UTF-8");
-            // Luuakse massiivid sõnade ja lausete jaoks, mis loetakse tekstifailist
-            String[] tükid = new String[0];
-            String[] tükid2 = new String[0];
-            String[] tükid3 = new String[0];
+        try {
+            InputStream baidid = new FileInputStream(fail);
+            InputStreamReader tekst = new InputStreamReader(baidid, "UTF-8");
+            BufferedReader puhverdatud = new BufferedReader(tekst);
+
+            String keskmSõnaLühi = "";
+            String keskmLauseLühi = "";
+
+            String rida = puhverdatud.readLine();
+
             double kokku = 0;
             double kokku2 = 0;
-            // Sõnad ja laused pannakse massiividesse
-            while (sc.hasNextLine()) {
-                String rida = sc.nextLine();
+
+
+            //loon tsükli, mis käib teksti lõpuni, kui leitakse meetodisse sisestatud sõne, siis see salvestatakse muutujasse kokku
+            while (rida != null) {
+
+                String[] tükid = new String[0];
+                String[] tükid2 = new String[0];
+                String[] tükid3 = new String[0];
+
                 tükid = rida.trim().split(" ");
                 tükid3 = rida.trim().split(" ");
                 tükid2 = rida.trim().split("[.?!]");
@@ -76,27 +86,33 @@ public class TekstiAnalyys extends JPanel {
                     }
                 }
 
+
+                //luuakse uus list, kuhu sisestatakse kolm juhuslikult genereeritud lauset.
+                // Laused saadakse teises tsüklis loodud listiga, mis annab omakorda listi kõikide lausetega.
+                //Nendest lausetest võetaksegi kolm juhuslikku
+                // See on tesktianalüüsi seisukohalt vähem oluline osa, aga proovisime randomi ka lisada :)
+                ArrayList<Lause> suvalisedLaused = new ArrayList<>();
+                for (int i = 0; i < 3; i++) {
+                    Random randomGenerator = new Random();
+                    int index = randomGenerator.nextInt(list2.size());
+                    suvalisedLaused.add(list2.get(index));
+                    suvalisedLaused.get(i);
+                }
+                //Leitakse sõnade ja lausete keskmised pikkused
+
+                //Sorteeritakse sõnade list. Vastavas klassis on CompareTo meetod, mis reastab sõnad pikkuse järjekorras
+                Collections.sort(list1);
+                // Trükitakse välja sõnade ja lausete arv, keskmine sõna- ja lausepikkus
+
+                rida = puhverdatud.readLine();
             }
-            //luuakse uus list, kuhu sisestatakse kolm juhuslikult genereeritud lauset.
-            // Laused saadakse teises tsüklis loodud listiga, mis annab omakorda listi kõikide lausetega.
-            //Nendest lausetest võetaksegi kolm juhuslikku
-            // See on tesktianalüüsi seisukohalt vähem oluline osa, aga proovisime randomi ka lisada :)
-            ArrayList<Lause> suvalisedLaused = new ArrayList<>();
-            for (int i = 0; i < 3; i++) {
-                Random randomGenerator = new Random();
-                int index = randomGenerator.nextInt(list2.size());
-                suvalisedLaused.add(list2.get(index));
-                suvalisedLaused.get(i);
-            }
-            //Leitakse sõnade ja lausete keskmised pikkused
+
             double keskminePikkus = kokku / list1.size();
             double keskmineLausePikkus = kokku2 / list2.size();
-            String keskmSõnaLühi = String.format("%.2f", keskminePikkus);
-            String keskmLauseLühi = String.format("%.2f", keskmineLausePikkus);
-            //Sorteeritakse sõnade list. Vastavas klassis on CompareTo meetod, mis reastab sõnad pikkuse järjekorras
-            Collections.sort(list1);
-            // Trükitakse välja sõnade ja lausete arv, keskmine sõna- ja lausepikkus
+            keskmSõnaLühi = String.format("%.2f", keskminePikkus);
+            keskmLauseLühi = String.format("%.2f", keskmineLausePikkus);
 
+            puhverdatud.close();
        /* System.out.println("Sõnu kokku: " + list1.size());
         System.out.println("Lauseid kokku: " + list2.size());
         System.out.println("Keskmine sõnepikkus: " + String.format("%.2f", keskminePikkus) + " tähte");
@@ -173,14 +189,18 @@ public class TekstiAnalyys extends JPanel {
             c.insets = new Insets(5, 10, 0, 10);
             panel.add(label7, c);
 
-        } catch (FileNotFoundException e) {
+
+
+        } catch(FileNotFoundException e){
             System.out.println("Selle nimega faili ei leitud. Programm suletakse.");
             System.exit(1);
         }
 
+
     }
 
 }
+
 
 
 
