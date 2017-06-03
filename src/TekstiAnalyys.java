@@ -2,8 +2,6 @@
 // Programm leiab sõnade ja lausete koguarvu, keskmise sõne- ja lausepikkuse,
 // tekstis olevad võõrsõnad ja 10 pikimat sõna ning lauset.
 
-import javafx.scene.paint.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
@@ -19,14 +17,6 @@ import javax.swing.JPanel;
 public class TekstiAnalyys extends JPanel {
 
     public static void main(String[] args) throws FileNotFoundException {
-       /* JFrame window = new JFrame();
-        window.setSize(640,480);
-        window.setTitle("Tekstianalüüs");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setVisible(true);
-
-       // Graafika komponent = new Graafika();
-       // window.add(komponent);*/
         // Luuakse listid sõnade, lausete ja võõrsõnade isendite jaoks
         ArrayList<Sõna> list1 = new ArrayList<>();
         ArrayList<Lause> list2 = new ArrayList<>();
