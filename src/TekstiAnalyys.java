@@ -27,6 +27,9 @@ public class TekstiAnalyys extends JPanel {
 
 
 
+
+
+
         // Tekstifaili sisu loetakse sisse
         try {
             InputStream baidid = new FileInputStream(fail);
@@ -40,6 +43,8 @@ public class TekstiAnalyys extends JPanel {
 
             double kokku = 0;
             double kokku2 = 0;
+
+
 
 
             //loon tsükli, mis käib teksti lõpuni, kui leitakse meetodisse sisestatud sõne, siis see salvestatakse muutujasse kokku
@@ -76,6 +81,8 @@ public class TekstiAnalyys extends JPanel {
                         list2.add(b);
                     }
                 }
+
+
                 //Kolmas tsükkel, kus saadakse klassi Võõrsõna sisend
                 for (int i = 0; i < tükid3.length; i++) {
                     String nimi3 = tükid3[i].replaceAll(",", "").replaceAll("!", "").replaceAll("\\.", "").replaceAll("\\?", "").replaceAll(" ", "").replaceAll("–", "");
@@ -107,12 +114,41 @@ public class TekstiAnalyys extends JPanel {
                 rida = puhverdatud.readLine();
             }
 
+
+
+
             double keskminePikkus = kokku / list1.size();
             double keskmineLausePikkus = kokku2 / list2.size();
             keskmSõnaLühi = String.format("%.2f", keskminePikkus);
             keskmLauseLühi = String.format("%.2f", keskmineLausePikkus);
-
             puhverdatud.close();
+
+
+            File salvestus = new File("analyys.txt");
+
+            if (!salvestus.exists()) {
+                salvestus.createNewFile();
+
+
+            }
+
+            FileWriter fw = new FileWriter(salvestus);
+
+            BufferedWriter bw = new BufferedWriter(fw);
+
+
+            bw.write("Teksti analüüsiga saadud tulemus. ");
+
+            bw.write("Tekstis on sõnu kokku: " + list1.size() + ". ");
+            bw.write("Tekstis on lauseid kokku: "+ list2.size() + ". ");
+            bw.write("Tekstist leitud võõrsõnad: " + String.valueOf(list3) + ". ");
+            bw.write("Ühe sõna keskmine pikkus on: " + keskmSõnaLühi + ". ");
+
+
+            bw.write("Ühe lause keskmine pikkus on: " + keskmLauseLühi + ". ");
+
+
+            bw.close();
        /* System.out.println("Sõnu kokku: " + list1.size());
         System.out.println("Lauseid kokku: " + list2.size());
         System.out.println("Keskmine sõnepikkus: " + String.format("%.2f", keskminePikkus) + " tähte");
@@ -200,8 +236,3 @@ public class TekstiAnalyys extends JPanel {
     }
 
 }
-
-
-
-
-
