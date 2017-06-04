@@ -137,15 +137,18 @@ public class TekstiAnalyys extends JPanel {
             BufferedWriter bw = new BufferedWriter(fw);
 
 
-            bw.write("Teksti analüüsiga saadud tulemus. ");
+            bw.write("ANALÜÜSI TULEMUSED" + System.getProperty("line.separator", "\n"));
 
-            bw.write("Tekstis on sõnu kokku: " + list1.size() + ". ");
-            bw.write("Tekstis on lauseid kokku: "+ list2.size() + ". ");
-            bw.write("Tekstist leitud võõrsõnad: " + String.valueOf(list3) + ". ");
-            bw.write("Ühe sõna keskmine pikkus on: " + keskmSõnaLühi + ". ");
+            bw.write("Sõnu kokku: " + list1.size() + System.getProperty("line.separator", "\n"));
+            bw.write("Lauseid kokku: "+ list2.size() + System.getProperty("line.separator", "\n"));
+
+            bw.write("Keskmine sõnepikkus: " + keskmSõnaLühi + " tähte" + System.getProperty("line.separator", "\n") );
 
 
-            bw.write("Ühe lause keskmine pikkus on: " + keskmLauseLühi + ". ");
+            bw.write("Keskmine lausepikkus: " + keskmLauseLühi + " sõna" + System.getProperty("line.separator", "\n"));
+
+            bw.write("Tekstist leitud võõrsõnad on: " + System.getProperty("line.separator", "\n"));
+            bw.write(String.valueOf(list3) + System.getProperty("line.separator", "\n"));
 
 
             bw.close();
