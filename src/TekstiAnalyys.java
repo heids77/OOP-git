@@ -88,7 +88,6 @@ public class TekstiAnalyys extends JPanel {
                     }
                 }
 
-
                 //luuakse uus list, kuhu sisestatakse kolm juhuslikult genereeritud lauset.
                 // Laused saadakse teises tsüklis loodud listiga, mis annab omakorda listi kõikide lausetega.
                 //Nendest lausetest võetaksegi kolm juhuslikku
@@ -109,7 +108,6 @@ public class TekstiAnalyys extends JPanel {
                 rida = puhverdatud.readLine();
             }
 
-
             double keskminePikkus = kokku / list1.size();
             double keskmineLausePikkus = kokku2 / list2.size();
             keskmSõnaLühi = String.format("%.2f", keskminePikkus);
@@ -121,53 +119,21 @@ public class TekstiAnalyys extends JPanel {
 
             if (!salvestus.exists()) {
                 salvestus.createNewFile();
-
-
             }
 
             FileWriter fw = new FileWriter(salvestus);
-
             BufferedWriter bw = new BufferedWriter(fw);
 
-
             bw.write("ANALÜÜSI TULEMUSED" + System.getProperty("line.separator", "\n"));
-
             bw.write("Sõnu kokku: " + list1.size() + System.getProperty("line.separator", "\n"));
             bw.write("Lauseid kokku: " + list2.size() + System.getProperty("line.separator", "\n"));
-
             bw.write("Keskmine sõnepikkus: " + keskmSõnaLühi + " tähte" + System.getProperty("line.separator", "\n"));
-
-
             bw.write("Keskmine lausepikkus: " + keskmLauseLühi + " sõna" + System.getProperty("line.separator", "\n"));
-
             bw.write("Tekstist leitud võõrsõnad on: " + System.getProperty("line.separator", "\n"));
             bw.write(String.valueOf(list3) + System.getProperty("line.separator", "\n"));
 
-
             bw.close();
-            //Siin on ekraanile trükkimise osa, mis on väljakommenteeritud
-       /* System.out.println("Sõnu kokku: " + list1.size());
-        System.out.println("Lauseid kokku: " + list2.size());
-        System.out.println("Keskmine sõnepikkus: " + String.format("%.2f", keskminePikkus) + " tähte");
-        System.out.println("Keskmine lausepikkus: " + String.format("%.2f", keskmineLausePikkus) + " sõna");
-        //Trükitakse välja tekstist leitud võõrsõnad
-        System.out.println("\n Tekstist leitud võõrsõnad on: " + list3);
-        String suvalised_muditid = suvalisedLaused.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
-        //Kuvatakse varasemalt randomiga saadud kolm juhuslikku lauset
-        System.out.println("\n Vahel rebitakse ka parimate tekstide puhul asju kontekstist välja. Kontekstist välja rebitud kolm juhuslikku lauset on: \n" + suvalised_muditid);
-        //Väike edetabel: kümme kõige pikemat sõna, mis leitakse võttes varasemalt sorteeritud list1-st
-        // ehk sõnade listi 10 esimest elementi.
-        System.out.println("10 kõige pikemat sõna: ");
-        for (int i = 0; i < 10; i++) {
-            System.out.print(list1.get(i));
-        }
-        //Sorteeritakse lausete list. Vastavas klassis on CompareTo meetod, mis reastab laused pikkuse järjekorras
-        Collections.sort(list2);
-        //Võetakse eelnevalt sorteeritud lausete list ja leitakse 10 esimest elementi
-        System.out.println("\n 10 kõige pikemat lauset: ");
-        for (int i = 0; i < 10; i++) {
-            System.out.print(list2.get(i));
-        }*/
+
             // Järgnevalt graafika loomine
             JFrame frame = new JFrame("Tekstianalüüs");
             frame.setVisible(true);
