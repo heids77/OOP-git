@@ -1,6 +1,7 @@
 //Programmi eesmärk on analüüsida teksti, mille kasutaja programmile ette annab.
 // Programm leiab sõnade ja lausete koguarvu, keskmise sõne- ja lausepikkuse,
-// tekstis olevad võõrsõnad ja 10 pikimat sõna ning lauset.
+// ja tekstis olevad võõrsõnad.
+// Tulemus kuvatakse graafiliselt ja kirjutatakse faili.
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +9,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Scanner;
 
 
 public class TekstiAnalyys extends JPanel {
@@ -26,10 +26,6 @@ public class TekstiAnalyys extends JPanel {
         File fail = new File(sisestatakse);
 
 
-
-
-
-
         // Tekstifaili sisu loetakse sisse
         try {
             InputStream baidid = new FileInputStream(fail);
@@ -43,8 +39,6 @@ public class TekstiAnalyys extends JPanel {
 
             double kokku = 0;
             double kokku2 = 0;
-
-
 
 
             //loon tsükli, mis käib teksti lõpuni, kui leitakse meetodisse sisestatud sõne, siis see salvestatakse muutujasse kokku
@@ -115,8 +109,6 @@ public class TekstiAnalyys extends JPanel {
             }
 
 
-
-
             double keskminePikkus = kokku / list1.size();
             double keskmineLausePikkus = kokku2 / list2.size();
             keskmSõnaLühi = String.format("%.2f", keskminePikkus);
@@ -140,9 +132,9 @@ public class TekstiAnalyys extends JPanel {
             bw.write("ANALÜÜSI TULEMUSED" + System.getProperty("line.separator", "\n"));
 
             bw.write("Sõnu kokku: " + list1.size() + System.getProperty("line.separator", "\n"));
-            bw.write("Lauseid kokku: "+ list2.size() + System.getProperty("line.separator", "\n"));
+            bw.write("Lauseid kokku: " + list2.size() + System.getProperty("line.separator", "\n"));
 
-            bw.write("Keskmine sõnepikkus: " + keskmSõnaLühi + " tähte" + System.getProperty("line.separator", "\n") );
+            bw.write("Keskmine sõnepikkus: " + keskmSõnaLühi + " tähte" + System.getProperty("line.separator", "\n"));
 
 
             bw.write("Keskmine lausepikkus: " + keskmLauseLühi + " sõna" + System.getProperty("line.separator", "\n"));
@@ -152,6 +144,7 @@ public class TekstiAnalyys extends JPanel {
 
 
             bw.close();
+            //Siin on ekraanile trükkimise osa, mis on väljakommenteeritud
        /* System.out.println("Sõnu kokku: " + list1.size());
         System.out.println("Lauseid kokku: " + list2.size());
         System.out.println("Keskmine sõnepikkus: " + String.format("%.2f", keskminePikkus) + " tähte");
@@ -174,7 +167,7 @@ public class TekstiAnalyys extends JPanel {
         for (int i = 0; i < 10; i++) {
             System.out.print(list2.get(i));
         }*/
-
+            // Järgnevalt graafika loomine
             JFrame frame = new JFrame("Tekstianalüüs");
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -229,12 +222,10 @@ public class TekstiAnalyys extends JPanel {
             panel.add(label7, c);
 
 
-
-        } catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("Selle nimega faili ei leitud. Programm suletakse.");
             System.exit(1);
         }
-
 
     }
 
