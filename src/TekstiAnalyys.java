@@ -2,7 +2,7 @@
 // Programm leiab sõnade ja lausete koguarvu, keskmise sõne- ja lausepikkuse,
 // ja tekstis olevad võõrsõnad.
 // Tulemus kuvatakse graafiliselt ja kirjutatakse faili.
-// Kui faili ei leita, visatakse erind.
+// Kui lähtefaili ei leita, visatakse erind.
 
 import javax.swing.*;
 import java.awt.*;
